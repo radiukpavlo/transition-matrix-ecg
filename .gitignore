@@ -1,3 +1,16 @@
 data_lock/lobachevsky-university-electrocardiography-database-1.0.1.zip
 data_lock/ptb-xl-a-comprehensive-electrocardiographic-feature-dataset-1.0.1.zip
 data_lock/ptb-xl-a-large-publicly-available-electrocardiography-dataset-1.0.3.zip
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+.coverage
+.venv/
+raw/
+interim/
+features/
+latents/
+transition/
+reports/
+manifests/

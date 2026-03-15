@@ -1,0 +1,90 @@
+[project]
+name = "transition-matrix-ecg"
+version = "0.1.0"
+ontology_version = "2026-03-14"
+seed = 17
+
+[paths]
+root = "."
+data_lock = "data_lock"
+raw = "raw"
+interim = "interim"
+features = "features"
+latents = "latents"
+transition = "transition"
+reports = "reports"
+manifests = "manifests"
+
+[datasets.ptbxl]
+name = "ptbxl"
+version = "1.0.3"
+archive = "ptb-xl-a-large-publicly-available-electrocardiography-dataset-1.0.3.zip"
+extract_dir = "ptbxl"
+metadata_csv = "ptbxl_database.csv"
+train_folds = [1, 2, 3, 4, 5, 6, 7, 8]
+val_folds = [9]
+test_folds = [10]
+
+[datasets.ptbxl_plus]
+name = "ptbxl_plus"
+version = "1.0.1"
+archive = "ptb-xl-a-comprehensive-electrocardiographic-feature-dataset-1.0.1.zip"
+extract_dir = "ptbxl_plus"
+
+[datasets.ludb]
+name = "ludb"
+version = "1.0.1"
+archive = "lobachevsky-university-electrocardiography-database-1.0.1.zip"
+extract_dir = "ludb"
+repeats = 3
+folds = 5
+
+[splits]
+ptbxl_train_target_rows = 10000
+ptbxl_preserve_demographics = true
+ptbxl_preserve_noise = true
+ptbxl_preserve_pacemaker = true
+
+[filters.detection]
+highpass_hz = 0.67
+lowpass_hz = 150.0
+line_frequency_hz = 50.0
+apply_notch_if_present = true
+
+[filters.diagnostic]
+highpass_hz = 0.05
+lowpass_hz = 150.0
+line_frequency_hz = 50.0
+apply_notch_if_present = true
+
+[thresholds]
+lead_ii_snr_db = 5.0
+minimum_valid_beats = 5
+minimum_analyzable_fraction = 0.5
+qrs_wide_ms = 120.0
+t_inverted_threshold_mv = -0.1
+t_inverted_duration_ms = 80.0
+eps = 0.001
+qrs_fragment_prominence_mv = 0.05
+
+[latents]
+penultimate_dim = 512
+pooling = "trimmed_mean_10pct"
+variance_retained = 0.99
+
+[transition]
+lambda_grid = [0.01, 0.1, 1.0, 10.0, 100.0]
+rank_cap = 512
+
+[training]
+epochs = 2
+batch_size = 32
+learning_rate = 0.001
+num_workers = 0
+samples_per_beat = 256
+pre_r_seconds = 0.25
+post_r_seconds = 0.45
+
+[reporting]
+bootstrap_replicates = 1000
+null_replicates = 250

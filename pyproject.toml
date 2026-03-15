@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tm-ecg"
+version = "0.1.0"
+description = "Locked ECG transition-matrix baseline."
+readme = "README.md"
+requires-python = ">=3.12"
+license = { text = "MIT" }
+authors = [{ name = "OpenAI Codex" }]
+dependencies = [
+  "numpy>=1.26; python_version < '3.14'",
+  "scipy>=1.11; python_version < '3.14'",
+  "pandas>=2.2; python_version < '3.14'",
+  "pyarrow>=16.0; python_version < '3.14'",
+  "scikit-learn>=1.5; python_version < '3.14'",
+  "wfdb>=4.1; python_version < '3.14'",
+  "matplotlib>=3.8; python_version < '3.14'",
+]
+
+[project.optional-dependencies]
+train = [
+  "torch>=2.4; python_version < '3.14'",
+]
+dev = [
+  "pytest>=8.3",
+  "ruff>=0.6",
+]
+
+[project.scripts]
+tm-ecg = "tm_ecg.cli:main"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
