@@ -9,8 +9,6 @@ __pycache__/
 .venv/
 raw/
 interim/
-features/
 latents/
 transition/
-reports/
 manifests/
